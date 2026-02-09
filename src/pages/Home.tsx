@@ -1,9 +1,9 @@
-import Timeline from "../components/Timeline"
+import MyTimeline from "../components/Timeline"
 
 
 function Home() {
     return (
-        <Timeline />
+        <MyTimeline />
     )
 }
 
