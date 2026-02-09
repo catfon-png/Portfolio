@@ -11,14 +11,16 @@ const linkStyle = {
     textDecoration: "none",
     color: "black",
     "&.active": {
-        fontWeight: "bold",
         borderBottom: "2px solid black",
         borderRadius: "0px",
     },
     "&:hover": {
         backgroundColor: "transparent",
         fontWeight: "bold",
-        color: "purple",
+    },
+    "&:focus": {
+        backgroundColor: "transparent",
+        fontWeight: "bold",
     }
 }
 

@@ -1,9 +1,13 @@
 import MyTimeline from "../components/Timeline"
+import Hero from "../components/Hero"
 
 
 function Home() {
     return (
-        <MyTimeline />
+        <>
+            <Hero />
+            <MyTimeline />
+        </>
     )
 }
 
