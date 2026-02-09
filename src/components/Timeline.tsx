@@ -1,8 +1,13 @@
+import { useRef, useLayoutEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
 import ExploreIcon from '@mui/icons-material/Explore';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const timelineItems = [
     {
@@ -139,9 +144,49 @@ const timelineItems = [
 ];
 
 function MyTimeline() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const timelineRef = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+            if (!containerRef.current || !timelineRef.current) return;
+
+            // Calculate how far the timeline needs to scroll
+            const timelineWidth = timelineRef.current.scrollWidth;
+            const containerWidth = containerRef.current.offsetWidth;
+            const scrollDistance = timelineWidth - containerWidth;
+
+            gsap.to(timelineRef.current, {
+                x: -scrollDistance,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top",
+                    end: () => `+=${scrollDistance}`,
+                    scrub: 1,
+                    pin: true,
+                    anticipatePin: 1,
+                },
+            });
+        }, containerRef);
+
+        return () => ctx.revert(); // Cleanup on unmount
+    }, []);
+
     return (
-        <Box sx={{ width: '100%', overflowX: 'auto', py: 4 }}>
+        <Box
+            ref={containerRef}
+            sx={{
+                width: '100%',
+                height: '100vh',
+                overflow: 'hidden',
+                py: 4,
+                display: 'flex',
+                alignItems: 'center',
+            }}
+        >
             <Box
+                ref={timelineRef}
                 sx={{
                     display: 'flex',
                     alignItems: 'flex-start',
