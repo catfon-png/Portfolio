@@ -6,13 +6,13 @@ const linkStyle = {
     color: "inherit",
     "&.active": {
         color: "secondary.main",
-        fontWeight: "bold"
+        fontWeight: "bold",
     }
 }
 
 export default function Navbar() {
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Toolbar>
                 <Typography variant="h6" sx={{ flexGrow: 1 }}>
                     <NavLink to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
